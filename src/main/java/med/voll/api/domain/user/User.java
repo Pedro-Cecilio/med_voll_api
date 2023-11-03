@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,6 +37,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(unique = true)
     private String login;
     private String password;
 
@@ -46,12 +48,18 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private TypeUsersEnum typeUser;
 
+    public User(CreateUserDto createUserDto){
+        this.login = createUserDto.login();
+        this.password = createUserDto.password();
+        this.typeUser = createUserDto.typeUser();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.typeUser == TypeUsersEnum.DOCTOR)
             return List.of(new SimpleGrantedAuthority("ROLE_DOCTOR"));
         else
-            return List.of(new SimpleGrantedAuthority("ROLE_PACIENT"));
+            return List.of(new SimpleGrantedAuthority("ROLE_PATIENT"));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package med.voll.api.domain.pacient;
+package med.voll.api.domain.patient;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.voll.api.domain.address.CreateAddressDto;
 
-public record CreatePacientDto(
+public record CreatePatientDto(
     @NotBlank
     String name,
     
@@ -20,7 +20,7 @@ public record CreatePacientDto(
     @NotBlank
     String telephone,
 
-    @NotBlank
+    @NotNull
     LocalDate birthOfDate,
 
     @NotNull

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.address.Address;
@@ -27,8 +29,9 @@ import med.voll.api.utils.Utils;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@SecurityRequirement(name = "bearer-key")
 @RestController
-@RequestMapping(value = "/doctors")
+@RequestMapping(value = "api/doctors")
 public class DoctorController {
     @Autowired
     private DoctorRepository doctorRepository;
@@ -57,7 +60,7 @@ public class DoctorController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseDoctorDto> create(@RequestBody @Valid CreateDoctorDto createDoctor) {
+    public ResponseEntity<ResponseDoctorDto> create(@RequestBody @Valid CreateDoctorDto createDoctor, HttpServletRequest request) {
         var doctor = new Doctor(createDoctor);
         var address = new Address(createDoctor.address());
         doctor.setAddress(address);

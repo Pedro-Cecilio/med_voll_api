@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import med.voll.api.domain.address.Address;
 import med.voll.api.domain.address.AddressRepository;
 import med.voll.api.domain.address.ResponseAddressDto;
 import med.voll.api.domain.address.UpdateAddressDto;
 import med.voll.api.utils.Utils;
 
+@SecurityRequirement(name = "bearer-key")
 @RestController
-@RequestMapping(value = "/address")
+@RequestMapping(value = "api/address")
 public class AddressController {
     @Autowired
     private AddressRepository addressRepository;

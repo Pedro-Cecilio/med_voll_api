@@ -1,4 +1,4 @@
-package med.voll.api.domain.pacient;
+package med.voll.api.domain.patient;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PacientRepository extends JpaRepository<Pacient, String> {
-    Page<Pacient> findAllByIsActiveTrue(Pageable pageable);
-    List<Pacient> findAllByIsActiveTrue();
+public interface PatientRepository extends JpaRepository<Patient, String> {
+    Page<Patient> findAllByIsActiveTrue(Pageable pageable);
+    List<Patient> findAllByIsActiveTrue();
 
 
-    Optional<Pacient> findByIdAndIsActiveTrue(String id);
+    Optional<Patient> findByIdAndIsActiveTrue(String id);
 }
 
